@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+.container {
+  @apply max-w-7xl mx-auto px-4;
+}
+
+/* Botones */
+.btn { @apply inline-flex items-center justify-center rounded-2xl font-semibold px-6 py-3 transition; }
+.btn-primary { @apply bg-yellow-400 text-gray-900 hover:bg-yellow-500 active:scale-95; }
+.btn-outline { @apply border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-gray-900 active:scale-95; }
+
+/* Titulos */
+.section-title { @apply text-3xl md:text-4xl font-extrabold tracking-tight; }
+.section-subtitle { @apply text-gray-600 mt-2; }
+
+/* Tarjetas */
+.card { @apply bg-white dark:bg-gray-900 rounded-2xl shadow-md hover:shadow-lg transition; }
+.pill { @apply inline-flex items-center rounded-full bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1; }
+
+/* Header glass */
+.header-glass {
+  backdrop-filter: saturate(140%) blur(10px);
+  background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.7));
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.dark .header-glass {
+  background: linear-gradient(180deg, rgba(17,24,39,.8), rgba(17,24,39,.6));
+  border-bottom-color: rgba(255,255,255,.06);
+}
+
+/* ==== SCROLL REVEAL ==== */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Focus animation */
+.focus-anim {
+  animation: focusFade .6s ease-out;
+}
+@keyframes focusFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Nav activo */
+.nav-link[data-active="true"]::after {
+  content: "";
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 100%; height: 2px;
+  background: rgb(250 204 21);
+}
+.nav-link { position: relative; }
+
+/* Zoom en imágenes */
+.card img { transition: transform .5s ease; }
+.card:hover img { transform: scale(1.04); }

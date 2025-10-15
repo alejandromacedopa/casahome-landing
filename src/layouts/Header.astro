@@ -1,0 +1,23 @@
+---
+const phone = '+51997563824';
+const links = ['Inicio', 'Nosotros', 'Proyectos', 'Testimonios', 'Contacto'];
+---
+<header class="header-glass sticky top-0 z-50">
+  <div class="container h-16 flex items-center justify-between">
+    <a href="#inicio" class="flex items-center gap-3">
+      <img src="/logo-casahome.png" alt="CasaHome" class="h-9 w-9 rounded-full" />
+      <span class="font-extrabold text-lg tracking-tight text-gray-900 dark:text-white">CasaHome</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-7 font-medium">
+      {links.map((t) => (
+        <a href={`#${t.toLowerCase()}`} class="nav-link text-gray-700 hover:text-yellow-500 dark:text-gray-300 dark:hover:text-yellow-400">
+          {t}
+        </a>
+      ))}
+      <a class="btn btn-primary" href={`https://wa.me/${phone.replace('+','')}`}>WhatsApp</a>
+    </nav>
+
+    <a class="md:hidden btn btn-primary" href={`https://wa.me/${phone.replace('+','')}`}>WhatsApp</a>
+  </div>
+</header>

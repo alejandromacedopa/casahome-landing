@@ -1,0 +1,87 @@
+---
+const {
+  title = 'CasaHome Inmobiliaria',
+  description = 'Lotes y viviendas con transparencia y acompañamiento total.',
+  image = '/og-image.jpg',
+} = Astro.props;
+---
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+  <body class="bg-white text-gray-800 dark:bg-gray-950 dark:text-gray-100 antialiased">
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>
+
+<!-- Script global: scroll reveal + fade navegación -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    // === Scroll Reveal ===
+    const reveals = Array.from(document.querySelectorAll('.reveal'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => io.observe(el));
+
+    // === Smooth navigation fade ===
+    const headerOffset = 72;
+    function smoothGo(hash) {
+      const target = document.querySelector(hash);
+      if (!target) return;
+      const rect = target.getBoundingClientRect();
+      const y = window.scrollY + rect.top - headerOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      target.classList.add('focus-anim');
+      setTimeout(() => target.classList.remove('focus-anim'), 700);
+    }
+
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      if (!href || href === '#') return;
+      e.preventDefault();
+      history.replaceState(null, '', href);
+      smoothGo(href);
+    });
+
+    if (location.hash) {
+      setTimeout(() => smoothGo(location.hash), 0);
+    }
+
+    // === Nav activo ===
+    const sections = ['#inicio','#nosotros','#proyectos','#testimonios','#contacto']
+      .map(sel => document.querySelector(sel))
+      .filter(Boolean);
+    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+
+    const ioNav = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.getAttribute('id');
+        if (!id) return;
+        const link = navLinks.find(l => l.getAttribute('href') === `#${id}`);
+        if (!link) return;
+        link.dataset.active = entry.isIntersecting ? 'true' : 'false';
+      });
+    }, { rootMargin: '-50% 0px -40% 0px' });
+    sections.forEach(sec => ioNav.observe(sec));
+  });
+</script>
