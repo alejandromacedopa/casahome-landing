@@ -10,13 +10,10 @@ const { image, title, desc, perks = [], status = 'Disponible' }: Props = Astro.p
 const soldOut = status.toLowerCase() !== 'disponible';
 ---
 
-
 <article
   class="card overflow-hidden group hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
   data-event="proyecto"
   data-project={title}
-  role="button"
-  tabindex="0"
 >
   <div class="relative aspect-[4/3] w-full">
     <img src={image} alt={title} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />

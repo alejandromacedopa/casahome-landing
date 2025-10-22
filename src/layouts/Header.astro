@@ -5,15 +5,11 @@ const links = ['Inicio', 'Nosotros', 'Proyectos', 'Testimonios', 'Contacto'];
 
 <header class="header-glass sticky top-0 z-50">
   <div class="container h-16 flex items-center justify-between">
-    <!-- Logo -->
     <a href="#inicio" class="flex items-center gap-3">
       <img src="/logo-casahome.png" alt="CasaHome" class="h-9 w-9 rounded-full" />
-      <span class="font-extrabold text-lg tracking-tight text-gray-900 dark:text-white">
-        CasaHome
-      </span>
+      <span class="font-extrabold text-lg tracking-tight text-gray-900 dark:text-white">CasaHome</span>
     </a>
 
-    <!-- Navegación principal -->
     <nav class="hidden md:flex items-center gap-7 font-medium">
       {links.map((t) => (
         <a
@@ -25,11 +21,9 @@ const links = ['Inicio', 'Nosotros', 'Proyectos', 'Testimonios', 'Contacto'];
           {t}
         </a>
       ))}
-
-      <!-- Botón WhatsApp -->
       <a
         class="btn btn-primary"
-        href={`https://wa.me/${phone.replace('+', '')}`}
+        href={`https://wa.me/${phone.replace('+','')}`}
         target="_blank"
         rel="noopener noreferrer"
         data-event="whatsapp"
@@ -39,10 +33,9 @@ const links = ['Inicio', 'Nosotros', 'Proyectos', 'Testimonios', 'Contacto'];
       </a>
     </nav>
 
-    <!-- Botón WhatsApp móvil -->
     <a
       class="md:hidden btn btn-primary"
-      href={`https://wa.me/${phone.replace('+', '')}`}
+      href={`https://wa.me/${phone.replace('+','')}`}
       target="_blank"
       rel="noopener noreferrer"
       data-event="whatsapp"

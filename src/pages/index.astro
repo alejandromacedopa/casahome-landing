@@ -20,16 +20,17 @@ const phone = '+51997563824';
       <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg">Construimos tus sueños</h1>
       <p class="mt-4 text-lg md:text-2xl text-yellow-300 font-medium">Lotes y viviendas con transparencia en Tarapoto 🌴</p>
       <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-        <!-- Medimos interés en proyectos desde el hero -->
-        <a href="#proyectos" class="btn btn-primary"
-           data-event="proyecto" data-project="cta_hero">
+        <a href="#proyectos" class="btn btn-primary" data-event="ver_proyecto" data-label="cta_hero">
           Ver proyectos
         </a>
-
-        <!-- Este es WhatsApp directo -->
-        <a href={`https://wa.me/${phone.replace('+','')}`} class="btn btn-outline"
-           target="_blank" rel="noopener noreferrer"
-           data-event="whatsapp" data-label="hero_whatsapp">
+        <a
+          href={`https://wa.me/${phone.replace('+','')}`}
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-event="whatsapp"
+          data-label="hero_whatsapp"
+        >
           Contáctanos
         </a>
       </div>
@@ -109,37 +110,37 @@ const phone = '+51997563824';
           <a href={`https://wa.me/${phone.replace('+','')}`}
              class="btn btn-primary"
              target="_blank" rel="noopener noreferrer"
-             data-event="whatsapp" data-label="contacto_whatsapp">
+             data-event="whatsapp"
+             data-label="contacto_whatsapp">
             WhatsApp
           </a>
-
-          <a href="https://www.facebook.com/casahomesac" target="_blank" class="btn btn-outline" rel="noopener noreferrer"
-             data-event="contacto" data-label="contacto_facebook">
+          <a href="https://www.facebook.com/casahomesac"
+             class="btn btn-outline"
+             target="_blank" rel="noopener noreferrer"
+             data-event="contacto"
+             data-label="contacto_facebook">
             Facebook
           </a>
         </div>
       </div>
 
-      <!-- Medimos envío de formulario -->
-      <form class="card p-6 bg-white text-gray-800 rounded-2xl" name="contacto" data-event="form-contacto">
+      <form class="card p-6 bg-white text-gray-800 rounded-2xl"
+            name="contacto"
+            data-event="form-contacto">
         <h3 class="text-xl font-semibold">Solicita tu asesoría</h3>
         <p class="text-sm text-gray-600 mt-1">Te contactamos en minutos</p>
-
         <label class="block mt-4 text-sm">
           Nombre
           <input required name="nombre" class="mt-1 w-full rounded-xl border px-4 py-2 outline-none focus:ring-2 focus:ring-yellow-400" />
         </label>
-
         <label class="block mt-3 text-sm">
           Teléfono / WhatsApp
           <input required name="telefono" class="mt-1 w-full rounded-xl border px-4 py-2 outline-none focus:ring-2 focus:ring-yellow-400" />
         </label>
-
         <label class="block mt-3 text-sm">
           Mensaje
           <textarea name="mensaje" rows="4" class="mt-1 w-full rounded-xl border px-4 py-2 outline-none focus:ring-2 focus:ring-yellow-400"></textarea>
         </label>
-
         <button type="submit" class="btn btn-primary mt-4 w-full">Enviar</button>
       </form>
     </div>

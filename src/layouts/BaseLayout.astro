@@ -1,6 +1,4 @@
 ---
-import AnalyticsEvents from "../components/AnalyticsEvents.astro";
-
 const {
   title = 'CasaHome Inmobiliaria',
   description = 'Lotes y viviendas con transparencia y acompañamiento total.',
@@ -20,107 +18,74 @@ const {
     <meta property="og:type" content="website" />
     <link rel="icon" href="/favicon.ico" />
 
-     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WCR4J5GPC4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- ✅ GA4 (ID real) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WCR4J5GPC4"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-WCR4J5GPC4', { send_page_view: true });
+    </script>
 
-  gtag('config', 'G-WCR4J5GPC4');
-</script>
-
+    <!-- (Opcional) Vercel -->
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
   </head>
 
   <body class="bg-white text-gray-800 dark:bg-gray-950 dark:text-gray-100 antialiased">
     <slot />
 
-    <!-- 🔹 Vercel Analytics -->
-    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- ✅ Tracking global basado en data-* -->
+    <script is:inline>
+      // Clics en elementos con data-event
+      document.addEventListener('click', (e) => {
+        const el = e.target.closest('[data-event]');
+        if (!el || typeof gtag !== 'function') return;
 
-    <!-- 🔹 Vercel Speed Insights -->
-    <script defer src="/_vercel/speed-insights/script.js"></script>
+        const base = el.dataset.event;                             // "whatsapp" | "contacto" | "ver_proyecto" | "proyecto" | ...
+        const label = el.dataset.label || el.textContent?.trim() || 'sin_label';
+        const project = el.dataset.project || null;
 
-    <!-- 🔹 Eventos de negocio para GA4 (se importa UNA sola vez) -->
-    <AnalyticsEvents />
+        gtag('event', base + '_click', {
+          event_category: 'interacción',
+          event_label: label,
+          project_name: project,
+        });
+
+        // Debug en consola
+        // console.log('GA4 →', base + '_click', { label, project });
+      });
+
+      // Envío de formulario (data-event="form-contacto")
+      document.addEventListener('submit', (e) => {
+        const form = e.target.closest('[data-event="form-contacto"]');
+        if (!form || typeof gtag !== 'function') return;
+
+        gtag('event', 'form_submit_contacto', {
+          event_category: 'formulario',
+          event_label: 'contacto',
+        });
+        // console.log('GA4 → form_submit_contacto');
+      });
+    </script>
   </body>
 </html>
 
 <style is:global>
-  @import '../styles/global.css';
+  @import "../styles/global.css";
 
-  /* 💫 Animación reveal */
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ✨ Animación de foco al navegar */
-  .focus-anim {
-    animation: focusBlink 0.8s ease;
-  }
-  @keyframes focusBlink {
-    0%, 100% { outline: none; box-shadow: none; }
-    50% { outline: 2px solid #facc15; box-shadow: 0 0 12px #facc15; }
-  }
+  /* Reveal simple (ya lo usabas) */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
 </style>
 
-<!-- ⚙️ Script global: scroll reveal + navegación suave -->
+<!-- Reveal activador -->
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
-    // === Scroll Reveal ===
     const reveals = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
+      entries.forEach((en) => en.isIntersecting && (en.target.classList.add('is-visible'), io.unobserve(en.target)));
     }, { threshold: 0.15 });
     reveals.forEach(el => io.observe(el));
-
-    // === Smooth Scroll + Highlight ===
-    const headerOffset = 72;
-    const smoothScroll = (hash) => {
-      const el = document.querySelector(hash);
-      if (!el) return;
-      const y = el.getBoundingClientRect().top + window.scrollY - headerOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-      el.classList.add('focus-anim');
-      setTimeout(() => el.classList.remove('focus-anim'), 800);
-    };
-
-    document.addEventListener('click', (e) => {
-      const link = e.target.closest('a[href^="#"]');
-      if (!link) return;
-      const href = link.getAttribute('href');
-      if (!href || href === '#') return;
-      e.preventDefault();
-      history.replaceState(null, '', href);
-      smoothScroll(href);
-    });
-
-    if (location.hash) setTimeout(() => smoothScroll(location.hash), 0);
-
-    // === Nav activo ===
-    const sections = ['#inicio', '#nosotros', '#proyectos', '#testimonios', '#contacto']
-      .map(sel => document.querySelector(sel))
-      .filter(Boolean);
-    const navLinks = document.querySelectorAll('.nav-link');
-    const ioNav = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const id = entry.target.id;
-        if (!id) return;
-        const link = Array.from(navLinks).find(a => a.getAttribute('href') === `#${id}`);
-        if (link) link.dataset.active = entry.isIntersecting ? 'true' : 'false';
-      });
-    }, { rootMargin: '-50% 0px -40% 0px' });
-    sections.forEach(sec => ioNav.observe(sec));
   });
 </script>
