@@ -10,7 +10,7 @@ const { image, title, desc, perks = [], status = 'Disponible' }: Props = Astro.p
 const soldOut = status.toLowerCase() !== 'disponible';
 ---
 
-// Marcamos la tarjeta completa para medir clics de interés por proyecto
+
 <article
   class="card overflow-hidden group hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
   data-event="proyecto"
