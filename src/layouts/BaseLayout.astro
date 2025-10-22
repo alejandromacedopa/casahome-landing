@@ -8,7 +8,6 @@ const {
 
 <html lang="es" class="scroll-smooth">
   <head>
-    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="f44d5547-ddc6-4b84-93b4-ccbb0af7dbf7" type="text/javascript" async></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
@@ -20,14 +19,16 @@ const {
     <link rel="icon" href="/favicon.ico" />
 
     <!-- Google tag (gtag.js) -->
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://www.google-analytics.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2067GDZLBQ"></script>
 <script is:inline>
-  if (typeof window !== 'undefined') {
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-2067GDZLBQ');
-  }
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-2067GDZLBQ', { debug_mode: true });
+  // Evento de prueba, por si el auto page_view no entra:
+  gtag('event', 'page_view', { send_to: 'G-2067GDZLBQ' });
 </script>
 
 
