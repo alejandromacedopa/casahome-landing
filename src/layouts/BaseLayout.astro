@@ -17,6 +17,16 @@ const {
     <meta property="og:image" content={image} />
     <meta property="og:type" content="website" />
     <link rel="icon" href="/favicon.ico" />
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2067GDZLBQ"></script>
+<script is:inline>
+  // Siempre declara en window para evitar el warning de TS/ESLint
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ window.dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-2067GDZLBQ');
+</script>
   </head>
 
   <body class="bg-white text-gray-800 dark:bg-gray-950 dark:text-gray-100 antialiased">
