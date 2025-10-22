@@ -9,6 +9,8 @@ const phone = '+51997563824';
 ---
 <BaseLayout>
   <Header />
+
+  <!-- HERO -->
   <section id="inicio" class="reveal relative bg-gray-900 text-white overflow-hidden">
     <div class="absolute inset-0">
       <img src="/images/hero.jpg" alt="Tarapoto" class="w-full h-full object-cover opacity-60" />
@@ -18,12 +20,23 @@ const phone = '+51997563824';
       <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg">Construimos tus sueños</h1>
       <p class="mt-4 text-lg md:text-2xl text-yellow-300 font-medium">Lotes y viviendas con transparencia en Tarapoto 🌴</p>
       <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
-        <a href={`https://wa.me/${phone.replace('+','')}`} class="btn btn-outline">Contáctanos</a>
+        <!-- Medimos interés en proyectos desde el hero -->
+        <a href="#proyectos" class="btn btn-primary"
+           data-event="proyecto" data-project="cta_hero">
+          Ver proyectos
+        </a>
+
+        <!-- Este es WhatsApp directo -->
+        <a href={`https://wa.me/${phone.replace('+','')}`} class="btn btn-outline"
+           target="_blank" rel="noopener noreferrer"
+           data-event="whatsapp" data-label="hero_whatsapp">
+          Contáctanos
+        </a>
       </div>
     </div>
   </section>
 
+  <!-- NOSOTROS -->
   <section id="nosotros" class="reveal py-20 bg-gray-50">
     <div class="container grid md:grid-cols-2 gap-10 items-center">
       <div>
@@ -42,18 +55,36 @@ const phone = '+51997563824';
     </div>
   </section>
 
+  <!-- PROYECTOS -->
   <section id="proyectos" class="reveal py-20">
     <div class="container text-center">
       <h2 class="section-title">Proyectos destacados</h2>
       <p class="section-subtitle">El lugar ideal para vivir o invertir</p>
+
       <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <ProjectCard image="/images/proyecto1.jpg" title="Residencial Los Olivos" desc="Lotes desde 120 m² con accesos habilitados, áreas verdes y proyección de servicios." perks={['Vías niveladas', 'Áreas comunes', 'Cercano a avenidas', 'Documentación en regla']} />
-        <ProjectCard image="/images/proyecto2.jpg" title="Villa Palmeras" desc="Urbanización pensada para familias, cercana a colegios y comercios." perks={['Lotes regulares', 'Zonas recreativas', 'Buena conectividad', 'Financiamiento']} />
-        <ProjectCard image="/images/proyecto3.jpg" title="Mirador Tarapoto" desc="Excelente ubicación con vista y proyección de crecimiento." perks={['Plusvalía', 'Acceso rápido', 'Entorno natural', 'Planos referenciales']} />
+        <ProjectCard
+          image="/images/proyecto1.jpg"
+          title="Residencial Los Olivos"
+          desc="Lotes desde 120 m² con accesos habilitados, áreas verdes y proyección de servicios."
+          perks={['Vías niveladas', 'Áreas comunes', 'Cercano a avenidas', 'Documentación en regla']}
+        />
+        <ProjectCard
+          image="/images/proyecto2.jpg"
+          title="Villa Palmeras"
+          desc="Urbanización pensada para familias, cercana a colegios y comercios."
+          perks={['Lotes regulares', 'Zonas recreativas', 'Buena conectividad', 'Financiamiento']}
+        />
+        <ProjectCard
+          image="/images/proyecto3.jpg"
+          title="Mirador Tarapoto"
+          desc="Excelente ubicación con vista y proyección de crecimiento."
+          perks={['Plusvalía', 'Acceso rápido', 'Entorno natural', 'Planos referenciales']}
+        />
       </div>
     </div>
   </section>
 
+  <!-- TESTIMONIOS -->
   <section id="testimonios" class="reveal bg-yellow-50 dark:bg-gray-900 py-20">
     <div class="container">
       <h2 class="section-title text-center text-gray-900 dark:text-white">Lo que dicen nuestros clientes</h2>
@@ -65,6 +96,7 @@ const phone = '+51997563824';
     </div>
   </section>
 
+  <!-- CONTACTO -->
   <section id="contacto" class="reveal py-20 bg-gray-900 text-white">
     <div class="container grid md:grid-cols-2 gap-10 items-center">
       <div>
@@ -72,26 +104,42 @@ const phone = '+51997563824';
         <p class="mt-2">📍 Jr. Colón 156, Tarapoto, Perú</p>
         <p class="mt-1">📞 <a href="tel:+51997563824" class="underline">+51 997 563 824</a></p>
         <p class="mt-1">✉️ <a href="mailto:casahomesac@gmail.com" class="underline">casahomesac@gmail.com</a></p>
+
         <div class="mt-6 flex flex-wrap gap-3">
-          <a href={`https://wa.me/${phone.replace('+','')}`} class="btn btn-primary">WhatsApp</a>
-          <a href="https://www.facebook.com/casahomesac" target="_blank" class="btn btn-outline">Facebook</a>
+          <a href={`https://wa.me/${phone.replace('+','')}`}
+             class="btn btn-primary"
+             target="_blank" rel="noopener noreferrer"
+             data-event="whatsapp" data-label="contacto_whatsapp">
+            WhatsApp
+          </a>
+
+          <a href="https://www.facebook.com/casahomesac" target="_blank" class="btn btn-outline" rel="noopener noreferrer"
+             data-event="contacto" data-label="contacto_facebook">
+            Facebook
+          </a>
         </div>
       </div>
-      <form class="card p-6 bg-white text-gray-800 rounded-2xl">
+
+      <!-- Medimos envío de formulario -->
+      <form class="card p-6 bg-white text-gray-800 rounded-2xl" name="contacto" data-event="form-contacto">
         <h3 class="text-xl font-semibold">Solicita tu asesoría</h3>
         <p class="text-sm text-gray-600 mt-1">Te contactamos en minutos</p>
+
         <label class="block mt-4 text-sm">
           Nombre
           <input required name="nombre" class="mt-1 w-full rounded-xl border px-4 py-2 outline-none focus:ring-2 focus:ring-yellow-400" />
         </label>
+
         <label class="block mt-3 text-sm">
           Teléfono / WhatsApp
           <input required name="telefono" class="mt-1 w-full rounded-xl border px-4 py-2 outline-none focus:ring-2 focus:ring-yellow-400" />
         </label>
+
         <label class="block mt-3 text-sm">
           Mensaje
           <textarea name="mensaje" rows="4" class="mt-1 w-full rounded-xl border px-4 py-2 outline-none focus:ring-2 focus:ring-yellow-400"></textarea>
         </label>
+
         <button type="submit" class="btn btn-primary mt-4 w-full">Enviar</button>
       </form>
     </div>

@@ -1,0 +1,58 @@
+---
+// src/components/AnalyticsEvents.astro
+---
+<script is:inline>
+  // Utilidad segura: envía evento solo si gtag existe
+  function sendEvent(name, params = {}) {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', name, params);
+      // console.log('GA4 ->', name, params);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1) Clic en WhatsApp
+    document.querySelectorAll('[data-event="whatsapp"]').forEach((el) => {
+      el.addEventListener('click', () => {
+        sendEvent('whatsapp_click', {
+          event_category: 'conversion',
+          event_label: el.getAttribute('data-label') || 'whatsapp_header',
+          value: 1,
+        });
+      });
+    });
+
+    // 2) Clic en Contáctanos
+    document.querySelectorAll('[data-event="contacto"]').forEach((el) => {
+      el.addEventListener('click', () => {
+        sendEvent('contacto_click', {
+          event_category: 'conversion',
+          event_label: el.getAttribute('data-label') || 'cta_contacto',
+          value: 1,
+        });
+      });
+    });
+
+    // 3) Clic en tarjeta de proyecto (con nombre)
+    document.querySelectorAll('[data-event="proyecto"]').forEach((el) => {
+      el.addEventListener('click', () => {
+        const nombre = el.getAttribute('data-project') || 'proyecto_desconocido';
+        sendEvent('ver_proyecto_click', {
+          event_category: 'interes',
+          project_name: nombre,           // parámetro personalizado
+        });
+      });
+    });
+
+    // 4) Envío de formulario de contacto
+    const form = document.querySelector('form[data-event="form-contacto"]');
+    if (form) {
+      form.addEventListener('submit', () => {
+        sendEvent('form_submit_contacto', {
+          event_category: 'conversion',
+          event_label: 'formulario_contacto',
+        });
+      });
+    }
+  });
+</script>

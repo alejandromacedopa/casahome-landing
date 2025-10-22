@@ -1,4 +1,6 @@
 ---
+import AnalyticsEvents from "../components/AnalyticsEvents.astro";
+
 const {
   title = 'CasaHome Inmobiliaria',
   description = 'Lotes y viviendas con transparencia y acompañamiento total.',
@@ -18,7 +20,7 @@ const {
     <meta property="og:type" content="website" />
     <link rel="icon" href="/favicon.ico" />
 
-    <!-- Google tag (gtag.js) -->
+     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WCR4J5GPC4"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -27,7 +29,6 @@ const {
 
   gtag('config', 'G-WCR4J5GPC4');
 </script>
-
 
   </head>
 
@@ -39,6 +40,9 @@ const {
 
     <!-- 🔹 Vercel Speed Insights -->
     <script defer src="/_vercel/speed-insights/script.js"></script>
+
+    <!-- 🔹 Eventos de negocio para GA4 (se importa UNA sola vez) -->
+    <AnalyticsEvents />
   </body>
 </html>
 
